@@ -28,3 +28,5 @@ npm-debug.log
 
 /key.pem
 /.env
+/key-test.pem
+/.env-test
