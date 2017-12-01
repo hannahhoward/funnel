@@ -34,6 +34,16 @@ defmodule Funnel.GitHubTest do
       assert repository.git_hub_id == 123456
     end
 
+    test "get_or_create_repository_with_git_hub_id/1 finds an exisiting repository" do
+      repository = repository_fixture()
+      assert GitHub.get_or_create_repository_with_git_hub_id(repository.git_hub_id) == repository
+    end
+
+    test "get_or_create_repository_with_git_hub_id/1 creates a new repository" do
+      assert {:ok, %Repository{} = repository} = GitHub.get_or_create_repository_with_git_hub_id(123456)
+      assert repository.git_hub_id == 123456
+    end
+
     test "create_repository/1 with invalid data returns error changeset" do
       assert {:error, %Ecto.Changeset{}} = GitHub.create_repository(@invalid_attrs)
     end

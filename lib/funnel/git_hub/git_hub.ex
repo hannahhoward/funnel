@@ -38,6 +38,24 @@ defmodule Funnel.GitHub do
   def get_repository!(id), do: Repo.get!(Repository, id)
 
   @doc """
+  Gets or creates a single repository with the given GitHub ID.
+
+  ## Examples
+
+      iex> get_or_create_repository_with_git_hub_id(123)
+      %Repository{git_hub_id: 123}
+
+  """
+  def get_or_create_repository_with_git_hub_id(git_hub_id) do
+    case Repo.get_by(Repository, git_hub_id: git_hub_id) do
+      nil ->
+        create_repository %{git_hub_id: git_hub_id}
+      repository ->
+        repository
+    end
+  end
+
+  @doc """
   Creates a repository.
 
   ## Examples
